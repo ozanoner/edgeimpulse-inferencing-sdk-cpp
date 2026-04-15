@@ -1,3 +1,6 @@
+[![Component Registry](https://components.espressif.com/components/ozanoner/edgeimpulse-inference-sdk/badge.svg)](https://components.espressif.com/components/ozanoner/edgeimpulse-inference-sdk)
+
+
 # EdgeImpulse Inference SDK for ESP32
 
 ## Overview
@@ -10,8 +13,7 @@ This repo is primarily a packaging fork. It is useful when your ESP-IDF project 
 
 ## Current State
 
-- ESP-IDF component metadata is defined in `idf_component.yml`.
-- The registry package currently targets ESP-IDF `>=5.5` and is developed against ESP-IDF `v5.5.4`.
+- The public component is published as `ozanoner/edgeimpulse-inference-sdk`.
 - The component declares `espressif/esp-dsp` and `espressif/esp-nn` as dependencies.
 - Hardware acceleration can be disabled with `CONFIG_EI_DISABLE_HW_ACCEL`, which controls both `EI_CLASSIFIER_TFLITE_ENABLE_ESP_NN` and `EIDSP_USE_ESP_DSP`.
 - The repository includes two local example apps under `examples/` for validation and reference:
@@ -21,22 +23,7 @@ This repo is primarily a packaging fork. It is useful when your ESP-IDF project 
 
 ## Installation
 
-### Staging prerelease
-
-Use the staging registry while validating prerelease uploads:
-
-```yaml
-dependencies:
-  ozanoner/edgeimpulse-inference-sdk:
-    version: "0.1.0-rc1"
-    registry_url: https://components-staging.espressif.com
-```
-
-This repository uses plain component versions such as `0.1.0` and prerelease versions such as `0.1.0-rc1`.
-
-### Production release
-
-After the stable release is published, add the component from the IDF Component Registry:
+Install the component from the ESP-IDF Component Registry:
 
 ```bash
 idf.py add-dependency "ozanoner/edgeimpulse-inference-sdk"
@@ -49,7 +36,11 @@ dependencies:
   ozanoner/edgeimpulse-inference-sdk: "^0.1.0"
 ```
 
-For maintainers, prereleases should use matching Git tags such as `v0.1.0-rc1`.
+Registry page:
+
+- https://components.espressif.com/components/ozanoner/edgeimpulse-inference-sdk
+
+For maintainers, stable releases should use matching Git tags such as `v0.1.0`. If you publish a prerelease for validation, use a matching prerelease tag such as `v0.1.0-rc1` and the staging registry.
 
 ## Using the Component
 
@@ -70,54 +61,6 @@ EI_IMPULSE_ERROR err = run_classifier(&signal, &result, false);
 
 See `examples/hello-world` and `examples/hello-world-img` for complete ESP-IDF applications that wire the classifier into offline audio and image sample pipelines.
 
-
-## Local Example Builds
-
-This repository is not a standalone firmware app at the root. Build from one of the example projects instead.
-
-If `idf.py` is not already on your shell path, load the ESP-IDF environment first:
-
-```bash
-source ~/.espressif/v5.5.4/esp-idf/export.sh
-```
-
-### `examples/hello-world`
-
-This example runs keyword spotting from an offline audio sample.   
-
-Build for ESP32-S3:
-
-```bash
-rm -f sdkconfig && PRJ_BUILD_TARGET=esp32s3 idf.py reconfigure build
-```
-
-Build for Wokwi:
-
-```bash
-rm -f sdkconfig && PRJ_BUILD_TARGET=wokwi idf.py reconfigure build
-```
-
-
-### `examples/hello-world-img`
-
-This example runs image classification from offline feature data.   
-
-Build for ESP32-S3:
-
-```bash
-rm -f sdkconfig && PRJ_BUILD_TARGET=esp32s3 idf.py reconfigure build
-```
-
-Build for Wokwi:
-
-```bash
-rm -f sdkconfig && PRJ_BUILD_TARGET=wokwi idf.py reconfigure build
-```
-
-Notes:
-
-- It enables PSRAM-oriented configuration in its sdkconfig defaults.
-- On ESP32-S3, the quantized `int8` impulse does not currently work when hardware acceleration is enabled. Use an unoptimized `float32` impulse for this example.
 
 ## References
 
