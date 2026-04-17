@@ -27,9 +27,6 @@
 #include "offline_sample.h"
 #include "sdkconfig.h"
 
-#include <stdio.h>
-#include <string.h>
-
 static const char* TAG = "hello-world-img";
 
 int raw_feature_get_data(size_t offset, size_t length, float* out_ptr) {
@@ -116,6 +113,9 @@ extern "C" void app_main() {
 
     ESP_LOGI(TAG, "Edge Impulse standalone inferencing (Espressif ESP32)");
     print_memory_diagnostics();
+
+    ESP_LOGI(TAG, "Model: %s", EI_CLASSIFIER_PROJECT_NAME);
+    ESP_LOGI(TAG, "Labels: %d", EI_CLASSIFIER_LABEL_COUNT);
 
     if (sizeof(features) / sizeof(features[0]) != EI_CLASSIFIER_DSP_INPUT_FRAME_SIZE) {
         ESP_LOGE(TAG,
