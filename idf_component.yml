@@ -1,4 +1,4 @@
-version: "0.1.0"
+version: "0.1.1"
 description: Edge Impulse inferencing SDK packaged as an ESP-IDF component
   for ESP32-S3.
 license: BSD-3-Clause-Clear
@@ -16,6 +16,8 @@ tags:
   - inference
   - machine-learning
   - tinyml
+  - tflm
+  - tflite-micro
 
 files:
   use_gitignore: true
